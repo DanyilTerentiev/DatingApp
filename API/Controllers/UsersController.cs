@@ -1,20 +1,21 @@
 ﻿using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+    [Authorize]
+    public class UsersController : BaseApiController
     {
         private readonly DatingAppContext _context;
         public UsersController(DatingAppContext context)
         {
             _context = context;
         }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<User>> GetUsers()
         {
